@@ -19,83 +19,68 @@
   <link href="<?php echo base_url() ?>assets/css/freelancer.min.css" rel="stylesheet">
   
   <style>
-    .ourworks-box{
-  width: 60%;
-  justify-content: center;
-  text-align: center;
+    @media (min-width: 768px) {
+  /* show 3 items */
+  .carousel-inner .active,
+  .carousel-inner .active + .carousel-item,
+  .carousel-inner .active + .carousel-item + .carousel-item {
+    display: block;
+  }
+
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item,
+  .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item {
+    transition: none;
+  }
+
+  .carousel-inner .carousel-item-next,
+  .carousel-inner .carousel-item-prev {
+    position: relative;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .carousel-inner .active.carousel-item + .carousel-item + .carousel-item + .carousel-item {
+    position: absolute;
+    top: 0;
+    right: -33.3333%;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* left or forward direction */
+  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+  .carousel-item-next.carousel-item-left + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
+  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item {
+    position: relative;
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  /* farthest right hidden item must be abso position for animations */
+  .carousel-inner .carousel-item-prev.carousel-item-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    visibility: visible;
+  }
+
+  /* right or prev direction */
+  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+  .carousel-item-prev.carousel-item-right + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
+  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item {
+    position: relative;
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+    display: block;
+    visibility: visible;
+  }
 }
 
-.our-works-head{
-  font-size: 30px;
-  font-weight: 400;
-  color: black;
-}
-.introduce{
-  height: 250px;
-  background-color:white;
-  box-shadow: 0 3px 10px #5969f642;
-  border-bottom: 4px solid #5969f6;
-  color: black;
-}
-
-.introduce:hover{
-  box-shadow: 0 3px 15px #5969f666;
-  border-bottom: 4px solid #B122e5;
-  color: black;
-  text-decoration: none;
-}
-.flex-column-1{
-  height: 70%;
-  width: 100%;
-
-}
-.flex-column-2{
-  height: 30%;
-  width: 100%;
-  align-items:center;
-}
-.text-gray{
-  color: gray;
-}
-.pic{
-    height: 70px;
-    width: 70px;
-    margin-left: 20px;
-    border-radius: 50%;
-    transition: all .2s ease-in-out;
-}
-
-.introduce:hover .pic{
-  transform: scale(1.1);
-}
-.carousel-indicators .active{
-  background-color: #46eeaa;
-}
-.carousel-indicators li{
-  background-color: #c8e5ff;
-}
-.carousel-indicators{
-  bottom: -50px;
-}
-.p1{
-  background-image: url("http://lorempixel.com/150/150/nature");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.p2{
-  background-image: url("http://lorempixel.com/150/150/people");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-}
-.p3{
-  background-image: url("http://lorempixel.com/150/150/cats");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
   </style>
 
 </head>
