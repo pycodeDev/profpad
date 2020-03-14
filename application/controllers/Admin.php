@@ -13,6 +13,7 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/index',$data);
         }
     }
+    //coba masukin ini
     
     public function galeri()
     {
