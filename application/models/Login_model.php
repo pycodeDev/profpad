@@ -49,8 +49,11 @@ class Login_model extends CI_Model
                     'akses' => $user['akses'],
                     'id_user' => $user['id_user']
                 ];
-                if($user['akses'] == 'admin')
+                if($user['akses'] == '1')
                 {
+                    $this->session->set_userdata($data);
+                    redirect('admin/index');
+                } else {
                     $this->session->set_userdata($data);
                     redirect('admin/index');
                 }

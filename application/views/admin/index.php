@@ -69,11 +69,12 @@ if (isset($edit_data)) {
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-user"></i> Admin
+          <i class="far fa-user"></i> <?=$this->session->userdata('username')?>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Settings</span>
           <div class="dropdown-divider"></div>
+          <label class="ml-3"><?=$this->session->userdata('username')?> </label>: <i><?=$this->session->userdata('akses') ==1 ? 'Administrator' : 'Content Writer'?></i>
           <a href="<?=base_url()?>login/logout" class="dropdown-item">
             <i class="fas fa-lock mr-2"></i> Log Out
           </a>
@@ -105,7 +106,7 @@ if (isset($edit_data)) {
           <img src="<?php echo base_url() ?>assets_admin/dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="#" class="d-block"><?=$this->session->userdata('nama')?></a>
         </div>
       </div>
 
@@ -132,18 +133,24 @@ if (isset($edit_data)) {
               <p>Wisata</p>
             </a>
           </li>
-          <li class="nav-header">Laporan</li>
-          <li class="nav-item">
-            <a href="wisata" class="nav-link">
+          <li class="nav-header" style="display:<?= $this->session->userdata('akses') == '2' ? 'none' : '' ?>">Laporan</li>
+          <li class="nav-item" style="display:<?= $this->session->userdata('akses') == '2' ? 'none' : '' ?>">
+            <a href="<?=base_url()?>admin/laporan" class="nav-link <?= $this->uri->segments[2] == 'laporan' ? 'active' : '' ?>">
               <i class="nav-icon fas fa-file-pdf"></i>
-              <p>Wisata</p>
+              <p>Lap. Wisata</p>
             </a>
           </li>
           <li class="nav-header">Pengaturan</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item " style="display:<?= $this->session->userdata('akses') == '2' ? 'none' : '' ?>">
+            <a href="<?=base_url()?>admin/setting" class="nav-link <?= $this->uri->segments[2] == 'setting' ? 'active' : '' ?>" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Akun</p>
+            </a>
+          </li>
+          <li class="nav-item " style="display:<?= $this->session->userdata('akses') == '2' ? 'none' : '' ?>">
+            <a href="<?=base_url()?>admin/akun" class="nav-link <?= $this->uri->segments[2] == 'akun' ? 'active' : '' ?>" class="nav-link">
+              <i class="nav-icon far fa-circle text-success"></i>
+              <p class="text">Data Akun</p>
             </a>
           </li>
           <li class="nav-item">
@@ -169,11 +176,8 @@ if (isset($edit_data)) {
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy; <?=date('Y')?> PycodeDev.</strong>
     All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.0-beta.2
-    </div>
   </footer>
 
   <!-- Control Sidebar -->
@@ -437,14 +441,17 @@ marker.slideTo(	[lat, lon], {
                 var len = data.length;
                 var no = 1;
                 var hasil =[];
+                var akses = '<?= $this->uri->segments[2] ?>';
                 if (data[0].id_g != null) {
                     for (var i= 0; i < len; i++) {
-                    
+                    var coba = '<a href="<?=base_url()?>galeri/act_d/'+ data[i].id_g +'" id="btn_tambah" class="btn btn-sm btn-danger text-white mx-1 my-1">Hapus</a> <a href="<?=base_url()?>admin/e_galeri/'+ data[i].id_g +'/'+ data[i].id_w +'" id="btn_tambah" class="btn btn-sm btn-warning text-white">Edit</a>';
+                    var oo = '<a href="<?=base_url()?>admin/act_l/'+ data[i].id_g +'" id="btn_tambah" class="btn btn-sm btn-info text-white mx-1 my-1">Cetak</a>';
+                    var aa = akses == 'galeri' ? coba : oo;
                     var row = $('<tr>' +
                                 '<td>' + no + '</td>' +
                                 '<td>' + data[i].nama_wisata + '</td>' +
                                 '<td>' + data[i].lokasi + '</td>' + 
-                                '<td><img style="border:1px solid #000;border-radius:10px;width:100px;height:100px" src="<?=base_url()?>uploads/'+ data[i].galeri_name +'"></td>' + '<td><a href="<?=base_url()?>galeri/act_d/'+ data[i].id_g +'" id="btn_tambah" class="btn btn-sm btn-danger text-white mx-1 my-1">Hapus</a> <a href="<?=base_url()?>admin/e_galeri/'+ data[i].id_g +'/'+ data[i].id_w +'" id="btn_tambah" class="btn btn-sm btn-warning text-white">Edit</a></td>');
+                                '<td><img style="border:1px solid #000;border-radius:10px;width:100px;height:100px" src="<?=base_url()?>uploads/'+ data[i].galeri_name +'"></td>' + '<td>'+ aa +'</td>');
                     
                     hasil.push(row);
                     no=no+1;
